@@ -63,20 +63,19 @@ with os.scandir(directorio) as ficheros:
 #                    else:
 #                        ActividadDiaria.append('0')
 #                        break
-
-        for elemento in EstacionesSGCmin:
+        lon=len(EstacionesSGCmin)
+        for i in range(0,lon):
+            n=0
             for file in os.listdir(direc):
                     file_lower=file.lower()
-                    print(file_lower,"-",elemento)
-                    n=0
-                    if file_lower.startswith(elemento):
+                    print(file_lower,"-",EstacionesSGCmin[i])
+                    if file_lower.startswith(EstacionesSGCmin[i]):
                         n=n+1
-                    #print("n:",n)
+                    print("n:",n)
             if n!=0:
                 ActividadDiaria.append('1')
             else:
                 ActividadDiaria.append('0')
-
         tabla[fichero.name]=ActividadDiaria
         print(tabla)
         #print(len(ActividadDiaria))
