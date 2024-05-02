@@ -3,7 +3,6 @@ import pandas as pd
 import csv
 import gnsscal
 
-#holaaa
 
 #Leemos un archivo con las 105 estaciones SGC, las enlistamos y convertimos los caracteres a minusculas
 EstacionesIGAC=[' ',' ','ESTACIÓN']
