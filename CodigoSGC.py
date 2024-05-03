@@ -38,7 +38,7 @@ def doy2GPSWeek(año,doy):
     fecha=gnsscal.yrdoy2date(año, doy)
     GPSWeek=gnsscal.date2gpswd(fecha)
     mes=fecha.strftime('%m')
-    return GPSWeek
+    return GPSWeek, mes
 
 
 
@@ -61,41 +61,45 @@ MesesDisponibles()
 
 #Creamos los dataframe para cada mes
 print(Meses)
+data_frames=[]
 
-"""
-#Creamos un dataframe
-tabla = pd.DataFrame(EstacionesSGC)
+for mes in Meses:
+    df=pd.DataFrame(EstacionesSGC)
+    data_frames.append(df)
+    print(mes,":")
+    with os.scandir(directorio) as ficheros:
+        for fichero in ficheros:
+            GPSW, Mon=doy2GPSWeek(2024,int(fichero.name))
+            if (mes==Mon):
+                print(fichero.name)
+                #Creamos las 3 primeras filas del archivo excel que contiene vacio, semana gnss y dia gnss
+                ActividadDiaria=['']
+                ActividadDiaria.append(GPSW)
+                ActividadDiaria.append(Mon)
+
+                #Se crea una nueva ruta direc agregandole a directorio el nombre de cada fichero
+                direc= os.path.join(directorio,fichero.name)
 
 
-#Recorremos todas las carpetas y hacemos un listado de todas las estaciones
-with os.scandir(directorio) as ficheros:
-    for fichero in ficheros:
-        print(fichero.name)
-        #Creamos las 3 primeras filas del archivo excel que contiene vacio, semana gnss y dia gnss
-        ActividadDiaria=['']
-        GPSweek,DayWeek=doy2GPSWeek(2024,int(fichero.name))
-        ActividadDiaria.append(GPSweek)
-        ActividadDiaria.append(fichero.name)
+                lon=len(EstacionesSGCmin)
+                for i in range(0,lon):
+                    n=0
+                    for file in os.listdir(direc):
+                            file_lower=file.lower()
+                            #print(file_lower,"-",EstacionesSGCmin[i])
+                            if file_lower.startswith(EstacionesSGCmin[i]):
+                                n=n+1                    
+                    if n!=0:
+                        ActividadDiaria.append('1')
+                    else:
+                        ActividadDiaria.append('0')
+                df[fichero.name]=ActividadDiaria
+    df.to_csv(f"Mes{mes}.csv", index=False)
 
-        #Se crea una nueva ruta direc agregandole a directorio el nombre de cada fichero
-        direc= os.path.join(directorio,fichero.name)
 
 
-        lon=len(EstacionesSGCmin)
-        for i in range(0,lon):
-            n=0
-            for file in os.listdir(direc):
-                    file_lower=file.lower()
-                    #print(file_lower,"-",EstacionesSGCmin[i])
-                    if file_lower.startswith(EstacionesSGCmin[i]):
-                        n=n+1                    
-            if n!=0:
-                ActividadDiaria.append('1')
-            else:
-                ActividadDiaria.append('0')
-        tabla[fichero.name]=ActividadDiaria
-        #print(tabla)
-        #print(len(ActividadDiaria))
 
-tabla.to_csv("Datos.csv", index=False)
-"""
+# Mostramos los dataframes
+for i, df in enumerate(data_frames):
+    print(f"DataFrame Mes {i+1}:")
+    print(df)
