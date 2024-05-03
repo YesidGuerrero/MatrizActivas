@@ -21,17 +21,6 @@ with open('EstacionesSGC.csv', newline='') as File:
 
 
 
-#Creamos una clase para los dataframes correspondientes a cada mes
-class DataFrame:
-    def __init__(self, data_dict):
-        self.data=pd.DataFrame(data_dict)
-
-    def mostrar_dataframe(self):
-        print(self.data)
-
-
-
-
 
 #definimos una funcion que determina a que semana GPS pertenece el doy
 def doy2GPSWeek(año,doy):
@@ -66,14 +55,12 @@ data_frames=[]
 for mes in Meses:
     df=pd.DataFrame(EstacionesSGC)
     data_frames.append(df)
-    print(mes,":")
     with os.scandir(directorio) as ficheros:
         for fichero in ficheros:
             GPSW, Mon=doy2GPSWeek(2024,int(fichero.name))
             if (mes==Mon):
-                print(fichero.name)
                 #Creamos las 3 primeras filas del archivo excel que contiene vacio, semana gnss y dia gnss
-                ActividadDiaria=['']
+                ActividadDiaria=[fichero.name]
                 ActividadDiaria.append(GPSW)
                 ActividadDiaria.append(Mon)
 
@@ -102,4 +89,6 @@ for mes in Meses:
 # Mostramos los dataframes
 for i, df in enumerate(data_frames):
     print(f"DataFrame Mes {i+1}:")
+    #print(df.iloc[4])
+    #print(df.iloc[:,4])
     print(df)
