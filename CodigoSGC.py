@@ -9,7 +9,7 @@ directorio='//172.26.0.20/Elite_Sub_Geografia_Cartografia/3130GITGeodesia/90RSMN
 
 
 #Leemos un archivo con las 105 estaciones SGC, las enlistamos y convertimos los caracteres a minusculas
-EstacionesSGC=[' ',' ','ESTACIÓN']
+EstacionesSGC=[' ',' ','ESTACION']
 Estacionescomp=[]
 
 with open('EstacionesSGC.csv', newline='') as File:
@@ -31,7 +31,7 @@ def doy2GPSWeek(año,doy):
 
 
 
-#Creacion de array dataframes para meses disponibles hasta el momento funcion que genera los dataframe para cada mes
+#Creacion de array dataframes para meses disponibles hasta el momento, se crea una funcion que genera los dataframe para cada mes.
 Meses=[]
 def MesesDisponibles():
     with os.scandir(directorio) as ficheros:
@@ -80,15 +80,42 @@ for mes in Meses:
                         ActividadDiaria.append('1')
                     else:
                         ActividadDiaria.append('0')
-                df[fichero.name]=ActividadDiaria
-    df.to_csv(f"Mes{mes}.csv", index=False)
+                df[fichero.name]=ActividadDiaria 
 
 
 
 
+
+
+#Realizamos el conteo y generamos la columna de inactividad
+writer = pd.ExcelWriter('Estado estaciones.xlsx')
+for ind, df in enumerate(data_frames):
+    TotalRinex=["Total Rinex", " ", " "]
+    Estado=["Estado"," "," "]
+    for i in range (3,df.shape[0]):
+        suma=0
+        for j in range (1,df.shape[1]):
+            suma=suma+int(df.iloc[i,j])
+        TotalRinex.append(suma)
+        if suma==0:
+            est="Inactiva"
+        else:
+            est="Activa"
+        Estado.append(est)
+    df["Total"]=TotalRinex
+    df["Estado"]=Estado
+    print(df)
+    #df.to_excel(f"Mes 0{ind+1}.xlsx", index=False)
+    df.to_excel(writer,  sheet_name=f'Mes 0{ind+1}', index=False)
+
+writer._save()
+
+
+"""
 # Mostramos los dataframes
 for i, df in enumerate(data_frames):
     print(f"DataFrame Mes {i+1}:")
     #print(df.iloc[4])
     #print(df.iloc[:,4])
     print(df)
+    """
