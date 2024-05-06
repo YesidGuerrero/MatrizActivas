@@ -46,7 +46,10 @@ def MesesDisponibles():
                 Meses.append(mont)
     return
 
+
 MesesDisponibles()
+
+
 
 #Creamos los dataframe para cada mes
 print(Meses)
@@ -58,6 +61,7 @@ for mes in Meses:
     with os.scandir(directorio) as ficheros:
         for fichero in ficheros:
             GPSW, Mon=doy2GPSWeek(2024,int(fichero.name))
+            print(Mon)
             if (mes==Mon):
                 #Creamos las 3 primeras filas del archivo excel que contiene vacio, semana gnss y dia gnss
                 ActividadDiaria=[fichero.name]
@@ -88,7 +92,7 @@ for mes in Meses:
 
 
 #Realizamos el conteo y generamos la columna de inactividad
-writer = pd.ExcelWriter('Estado estaciones.xlsx')
+writer = pd.ExcelWriter('EstadoestacionesSGC.xlsx')
 for ind, df in enumerate(data_frames):
     TotalRinex=["Total Rinex", " ", " "]
     Estado=["Estado"," "," "]
@@ -105,7 +109,6 @@ for ind, df in enumerate(data_frames):
     df["Total"]=TotalRinex
     df["Estado"]=Estado
     print(df)
-    #df.to_excel(f"Mes 0{ind+1}.xlsx", index=False)
     df.to_excel(writer,  sheet_name=f'Mes 0{ind+1}', index=False)
 
 writer._save()
