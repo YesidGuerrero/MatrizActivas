@@ -7,8 +7,8 @@ import gnsscal
 
 
 #Ingresamos los directorios de matrices del IGAC y del SGC
-directorio="C:/Users/hp/Documents/Documento/IGAC/Depuración/MatrizActivas/EstadoestacionesIGAC.xlsx"
-directorio2='C:/Users/hp/Documents/Documento/IGAC/Depuración/MatrizActivas/EstadoestacionesSGC.xlsx'
+directorio="C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/EstadoestacionesIGAC.xlsx"
+directorio2='C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/EstadoestacionesSGC.xlsx'
 
 
 # Leemos el archivo excel con multiples hojas
@@ -53,7 +53,7 @@ def Tablatodoslosmeses():
         if name !='Mes 01':
             merged_Igac=pd.merge(merged_Igac,df, on=0, how='outer')
     
-    #merged_Igac.to_excel("C:/Users/hp/Documents/Documento/IGAC/Depuración/MatrizActivas/tablaIGAC.xlsx", index=False)
+    merged_Igac.to_excel("C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/tabla.xlsx", index=False)
 
 
     #Inicializamos un Dataframe para unir los dataframe del SGC
@@ -65,8 +65,8 @@ def Tablatodoslosmeses():
 
     #merged_SGC.to_excel("C:/Users/hp/Documents/Documento/IGAC/Depuración/MatrizActivas/tablaSGC.xlsx", index=False)
 
-    TablaArcgis=pd.concat([merged_Igac,merged_SGC])
-    TablaArcgis.to_excel("C:/Users/hp/Documents/Documento/IGAC/Depuración/MatrizActivas/tabla.xlsx", index=False)
+    #TablaArcgis=pd.concat([merged_Igac,merged_SGC])
+    #TablaArcgis.to_excel("C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/tabla.xlsx", index=False)
 
 
 

@@ -8,7 +8,7 @@ import gnsscal
 EstacionesIGAC=[' ',' ','ESTACIÓN']
 Estacionescomp=[]
 
-with open('EstacionesIGAC.csv', newline='') as File:
+with open('C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/EstacionesIGAC.csv', newline='') as File:
     reader=csv.reader(File)
     for fila in reader:
         EstacionesIGAC.append(fila[0])
@@ -126,7 +126,7 @@ for mes in Meses:
 
 
 #Realizamos el conteo y generamos la columna de inactividad
-writer = pd.ExcelWriter('EstadoestacionesIGAC.xlsx')
+writer = pd.ExcelWriter('C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/EstadoestacionesIGAC.xlsx')
 for ind, df in enumerate(data_frames):
     TotalRinex=["Total Rinex", " ", " "]
     Estado=["Estado"," "," "]
