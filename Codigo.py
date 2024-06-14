@@ -8,7 +8,7 @@ import gnsscal
 EstacionesIGAC=[' ',' ','ESTACIÓN']
 Estacionescomp=[]
 
-with open('C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/EstacionesIGAC.csv', newline='') as File:
+with open('C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/Estaciones.csv', newline='') as File:
     reader=csv.reader(File)
     for fila in reader:
         EstacionesIGAC.append(fila[0])
