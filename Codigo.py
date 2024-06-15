@@ -3,12 +3,14 @@ import pandas as pd
 import csv
 import gnsscal
 
+Entrada='C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/Estaciones.csv'
+Salida='C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/Estadoestaciones.xlsx'
 
 #Leemos un archivo con las 123 estaciones IGAC, las enlistamos y convertimos los caracteres a minusculas
 EstacionesIGAC=[' ',' ','ESTACIÓN']
 Estacionescomp=[]
 
-with open('C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/Estaciones.csv', newline='') as File:
+with open(Entrada, newline='') as File:
     reader=csv.reader(File)
     for fila in reader:
         EstacionesIGAC.append(fila[0])
@@ -126,7 +128,7 @@ for mes in Meses:
 
 
 #Realizamos el conteo y generamos la columna de inactividad
-writer = pd.ExcelWriter('C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/EstadoestacionesIGAC.xlsx')
+writer = pd.ExcelWriter(Salida)
 for ind, df in enumerate(data_frames):
     TotalRinex=["Total Rinex", " ", " "]
     Estado=["Estado"," "," "]

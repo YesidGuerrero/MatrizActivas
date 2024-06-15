@@ -8,6 +8,7 @@ import gnsscal
 
 #Ingresamos los directorios de matrices
 directorio="C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/Estadoestaciones.xlsx"
+DirSalida="C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/tabla.xlsx"
 
 
 # Leemos el archivo excel con multiples hojas
@@ -40,7 +41,7 @@ def Tablatodoslosmeses():
         if name !='Mes 01':
             merged=pd.merge(merged,df, on=0, how='outer')
     
-    merged.to_excel("C:/Users/Paola.galindo/Documents/story map/Codigos/MatrizActivas/tabla.xlsx", index=False)
+    merged.to_excel(DirSalida, index=False)
 
 
 Tablatodoslosmeses()
